@@ -1,4 +1,8 @@
-const { selectRecipes, selectRecipeById } = require("../models/recipes.model");
+const {
+  selectRecipes,
+  selectRecipeById,
+  addNewRecipe,
+} = require("../models/recipes.model");
 
 exports.getRecipes = (req, res, next) => {
   const { exclude_ingredients } = req.query;
@@ -30,4 +34,11 @@ exports.getRecipeById = (req, res, next) => {
     .catch((err) => {
       // console.log(err);
     });
+};
+
+exports.postNewRecipe = (req, res, next) => {
+  const { imageUrl, instructions, ingredients } = req.body;
+  addNewRecipe(imageUrl, instructions, ingredients).then((newRecipe) => {
+    res.status(200).send({ newRecipe });
+  });
 };
