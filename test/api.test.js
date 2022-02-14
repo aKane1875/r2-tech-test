@@ -67,4 +67,18 @@ describe("GET /api/recipes/:id", () => {
       })
     );
   });
+
+  test("400: responds with a bad request message when given invalid id", async () => {
+    const {
+      body: { msg },
+    } = await request.get("/api/recipes/59").expect(400);
+    expect(msg).toBe("Invalid request, recipe-id needed(eg. recipe-59)");
+  });
+
+  test("404: id passed correctly but no recipe with this id exists", async () => {
+    const {
+      body: { msg },
+    } = await request.get("/api/recipes/recipe-101").expect(404);
+    expect(msg).toBe("No recipe with this ID found");
+  });
 });
