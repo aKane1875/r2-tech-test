@@ -28,11 +28,12 @@ exports.getRecipeById = (req, res, next) => {
     .then((recipe) => {
       if (recipe === undefined) {
         res.status(404).send({ msg: "No recipe with this ID found" });
+      } else {
+        res.status(200).send({ recipe });
       }
-      res.status(200).send({ recipe });
     })
     .catch((err) => {
-      // console.log(err);
+      console.log(err);
     });
 };
 
